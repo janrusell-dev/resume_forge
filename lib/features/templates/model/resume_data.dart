@@ -1,13 +1,23 @@
 class ResumeData {
-  final String summary;
   final String fullName;
-  final String email;
+  final String address;
   final String phone;
+  final String email;
+  final List<String>skills;
+  final String summary;
+  final String education;
+  final String experience;
+  final String? certifications;
 
   ResumeData({
-    required this.summary,
     required this.fullName,
-    required this.email,
+    required this.address,
     required this.phone,
+    required this.email,
+    required this.summary,
+    required this.education,
+    required this.experience,  
+    this.certifications,
+    required this.skills,
   });
 }

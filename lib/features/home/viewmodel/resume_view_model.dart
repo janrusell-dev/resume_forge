@@ -15,22 +15,22 @@ class ResumeViewModel extends StateNotifier<List<Resume>>{
     final ResumeRepository _repository;
     
     ResumeViewModel(this._repository) : super([]){
-        loadResumes();
+        // loadResumes();
     }
 
-    Future<void> loadResumes() async {
-        final data = await _repository.getAll();
-        state = data;
-    }
+    // Future<void> loadResumes() async {
+    //     final data = await _repository.getAll();
+    //     state = data;
+    // }
 
-    Future<void> addResume(Resume resume) async {
-        await _repository.add(resume);
-        await loadResumes();
-    }
+    // Future<void> addResume(Resume resume) async {
+    //     await _repository.add(resume);
+    //     await loadResumes();
+    // }
 
-    Future<void> deleteResumes(int index) async {
-        await _repository.delete(index);
-        await loadResumes();
-    }
+    // Future<void> deleteResumes(int index) async {
+    //     await _repository.delete(index);
+    //     await loadResumes();
+    // }
 }
 

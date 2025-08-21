@@ -6,7 +6,7 @@ class ResumeRepository {
 
   ResumeRepository(this._service);
 
-  Future<List<Resume>> getAll() => _service.fetchResumes();
-  Future<void> add(Resume resume) => _service.addResume(resume);
-  Future<void> delete(int index) => _service.deleteResume(index);
+  // Future<List<Resume>> getAll() => _service.fetchResumes();
+  // Future<void> add(Resume resume) => _service.addResume(resume);
+  // Future<void> delete(int index) => _service.deleteResume(index);
 }

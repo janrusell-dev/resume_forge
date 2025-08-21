@@ -12,10 +12,8 @@ class BottomNavBar extends StatelessWidget {
 
      if (location.startsWith('/template')) {
       currentIndex = 1;
-    } else if (location.startsWith('/favorites')) {
-      currentIndex = 2;
     } else if (location.startsWith('/settings')) {
-      currentIndex = 3;
+      currentIndex = 2;
     }
     else{
       currentIndex = 0;
@@ -34,9 +32,6 @@ class BottomNavBar extends StatelessWidget {
               context.go('/template');
               break;
             case 2:
-              context.go('/favorites');
-              break;
-            case 3:
               context.go('/settings');
               break;
           }
@@ -55,12 +50,7 @@ class BottomNavBar extends StatelessWidget {
               currentIndex == 1 ? Icons.dashboard_rounded : Icons.dashboard_outlined),
             label: 'Templates',
           ),
-            BottomNavigationBarItem(
-            icon: Icon(
-              currentIndex == 2 ? Icons.favorite : Icons.favorite_outline),
-            label: 'Favorites',
-          ),
-             BottomNavigationBarItem(
+           BottomNavigationBarItem(
             icon: Icon(
               currentIndex == 3 ? Icons.settings : Icons.settings_outlined),
             label: 'Settings',

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:resume_builder/features/templates/views/widgets/tab_templates/all_templates.dart';
-import 'package:resume_builder/features/templates/views/widgets/tab_templates/minimalist_templates.dart';
-import 'package:resume_builder/features/templates/views/widgets/tab_templates/professional_templates.dart';
-import 'package:resume_builder/features/templates/views/widgets/tab_templates/simple_templates.dart';
+import 'package:resume_builder/features/templates/model/templates.dart';
+import 'package:resume_builder/features/templates/views/widgets/category_tab_widget.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
 class TopBarWidget extends StatefulWidget {
@@ -16,19 +14,18 @@ class TopBarWidget extends StatefulWidget {
 class _TopBarWidgetState extends State<TopBarWidget>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
-  late final PageController _pageController;
+  // late final PageController _pageController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
-    _pageController = PageController();
+    
   }
 
   @override
   void dispose() {
     _tabController.dispose();
-    _pageController.dispose();
     super.dispose();
   }
 
@@ -39,13 +36,6 @@ class _TopBarWidgetState extends State<TopBarWidget>
         Container(
           margin: EdgeInsets.symmetric(horizontal: 10.w),
           child: TabBar(
-            onTap: (index) {
-              _pageController.animateToPage(
-                index,
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeOut,
-              );
-            },
             controller: _tabController,
             labelColor: Colors.white,
             unselectedLabelColor: Colors.grey[500],
@@ -57,11 +47,12 @@ class _TopBarWidgetState extends State<TopBarWidget>
               bottomRightRadius: 20,
               bottomLeftRadius: 20,
               color: Colors.indigoAccent,
-              horizontalPadding: 2,
-              verticalPadding: 2,
+              horizontalPadding: 0,
+              verticalPadding: 0,
               paintingStyle: PaintingStyle.fill,
-              strokeWidth: 5,
+              strokeWidth: 5, 
             ),
+            enableFeedback: false,
             labelPadding: EdgeInsets.symmetric(horizontal: 16.w),
             tabAlignment: TabAlignment.start,
             dividerColor: Colors.transparent,
@@ -78,23 +69,20 @@ class _TopBarWidgetState extends State<TopBarWidget>
         SizedBox(
           width: double.infinity,
           height: 400.h,
-          child: Expanded(
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: (index) {
-                _tabController.animateTo(index);
-              },
-              physics: BouncingScrollPhysics(),
-              children: [
-                AllTemplates(),
-                ProfessionalTemplate(),
-                MinimalistTemplates(),
-                SimpleTemplates(),
-              ],
-            ),
+          child: TabBarView(
+            controller: _tabController,
+            physics: ClampingScrollPhysics(),
+            children: [
+              CategoryTabPage(category: Category.all),
+              CategoryTabPage(category: Category.professional),
+              CategoryTabPage(category: Category.minimalist),
+              CategoryTabPage(category: Category.simple)
+            ],
           ),
         ),
       ],
     );
   }
 }
+
+

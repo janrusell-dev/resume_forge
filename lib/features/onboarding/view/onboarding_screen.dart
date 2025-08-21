@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:resume_builder/core/utils/onboarding_state.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:resume_builder/core/utils/platform_utils.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:resume_builder/features/home/view/widgets/button_widget.dart';
+import 'package:resume_builder/features/onboarding/provider/onboarding_provider.dart';
+import 'package:resume_builder/features/onboarding/viewmodel/onboarding_viewmodel.dart';
+import 'package:resume_builder/widgets/button_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends ConsumerWidget {
   const OnboardingScreen({super.key});
 
-  Future<void> finishOnboarding(BuildContext context) async {
-    final preferences = await SharedPreferences.getInstance();
-    await preferences.setBool('seenOnboarding', true);
-    OnboardingState.seenOnboarding.value = true; 
-    // ignore: use_build_context_synchronously
-    context.go('/home');
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return PlatformUtils.isIOS
         ? Column()
         : SafeArea(
@@ -28,10 +23,11 @@ class OnboardingScreen extends StatelessWidget {
             body: Column(
               children: [
                 SizedBox(height: 0.1.sh,),
-                Lottie.asset(
-                  'assets/animation/document_animation.json',
-                  height: 250.h,
-                ),
+                // Lottie.asset(
+                //   'assets/animation/document_animation.json',
+                //   height: 250.h,
+                // ),
+                
                 SizedBox(height: 0.1.sh,),
                 Text(
                   "Build Resumes Easily",
@@ -51,8 +47,10 @@ class OnboardingScreen extends StatelessWidget {
                  textStyle: TextStyle(
                   color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14.sp
                 ),
-                onPressed: () => finishOnboarding(context),
-                
+                onPressed: () async {
+                  await ref.read(onboardingViewmodelProvider).finishOnboarding();
+                   context.go('/home');
+                },
                 )
               ],
             ),

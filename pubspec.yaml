@@ -44,6 +44,13 @@ dependencies:
   flutter_riverpod: ^2.6.1
   intl: ^0.20.2
   tab_indicator_styler: ^2.0.0
+  shimmer: ^3.0.0
+  google_fonts: ^6.2.1
+  path_provider: ^2.1.5
+  pdf: ^3.11.3
+  printing: ^5.14.2
+
+
 
 dev_dependencies:
   flutter_test:
@@ -72,7 +79,14 @@ flutter:
   assets:
   - assets/images/
   - assets/animation/
-  - assets/animation/document_animation.json
+  
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Italic-VariableFont.ttf
+          weight: 900
+        - asset: assets/fonts/Roboto-VariableFont.ttf
+          weight: 700
     
   #   - images/a_dot_ham.jpeg
 
